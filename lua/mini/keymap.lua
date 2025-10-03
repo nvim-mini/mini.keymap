@@ -1,10 +1,7 @@
 --- *mini.keymap* Special key mappings
---- *MiniKeymap*
 ---
 --- MIT License Copyright (c) 2025 Evgeni Chasnovski
----
---- ==============================================================================
----
+
 --- Features:
 ---
 --- - Map keys to perform configurable multi-step actions: if condition for step
@@ -22,10 +19,10 @@
 ---   - Increase/decrease indent when cursor is inside of it.
 ---   - Delete all whitespace to the left ("hungry backspace").
 ---   - Navigate |vim.snippet|.
----   - Navigate and accept in 'hrsh7th/nvim-cmp' completion.
----   - Navigate and accept in 'Saghen/blink.cmp' completion.
----   - Navigate and expand 'L3MON4D3/LuaSnip' snippets.
----   - Execute <CR> and <BS> respecting 'windwp/nvim-autopairs'.
+---   - Navigate and accept in [hrsh7th/nvim-cmp](https://github.com/hrsh7th/nvim-cmp) completion.
+---   - Navigate and accept in [Saghen/blink.cmp](https://github.com/Saghen/blink.cmp) completion.
+---   - Navigate and expand [L3MON4D3/LuaSnip](https://github.com/L3MON4D3/LuaSnip) snippets.
+---   - Execute <CR> and <BS> respecting [windwp/nvim-autopairs](https://github.com/windwp/nvim-autopairs).
 ---
 --- - Map keys as "combo": each key acts immediately plus execute extra action if
 ---   all are typed within configurable delay between each other.
@@ -52,14 +49,14 @@
 ---
 --- # Comparisons ~
 ---
---- - 'max397574/better-escape.nvim':
+--- - [max397574/better-escape.nvim](https://github.com/max397574/better-escape.nvim):
 ---     - Mostly similar to |MiniKeymap.map_combo()| with a different approach
 ---       to creating mappings.
 ---     - Mostly targeted for Insert mode mappings as pressed keys get removed
 ---       automatically after typed. This module allows more general cases while
 ---       requiring explicit removal of keys (usually via explicit `<BS><BS>`).
 ---
---- - 'abecodes/tabout.nvim':
+--- - [abecodes/tabout.nvim](https://github.com/abecodes/tabout.nvim):
 ---     - Similar general idea as in `'jump_{after,before}_tsnode'` steps
 ---       of |MiniKeymap.map_multistep()|.
 ---     - Works only with enabled tree-sitter parser. This module provides
@@ -75,6 +72,7 @@
 --- of different scenarios and customization intentions, writing exact rules
 --- for disabling module's functionality is left to user.
 --- See |mini.nvim-disabling-recipes| for common recipes.
+---@tag MiniKeymap
 
 --- # Multi-step ~
 ---
@@ -217,9 +215,7 @@ MiniKeymap.setup = function(config)
   H.apply_config(config)
 end
 
---- Module config
----
---- Default values:
+--- Defaults ~
 ---@eval return MiniDoc.afterlines_to_code(MiniDoc.current.eval_section)
 MiniKeymap.config = {}
 --minidoc_afterlines_end
@@ -235,50 +231,50 @@ MiniKeymap.config = {}
 --- For better user experience there are many built-in steps mostly designed
 --- to create Insert mode "smart" mappings of <Tab>, <S-Tab>, <CR>, and <BS>.
 --- Available built-in steps ("For key" is a suggestion, any can be used):
----
---- ┌─────────────────────┬────────────────┬──────────────────────────┬─────────┐
---- │      Step name      │   Condition    │          Action          │ For key │
---- ├─────────────────────┴────────────────┴──────────────────────────┴─────────┤
---- ├┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ |ins-completion-menu| ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┤
---- │ pmenu_next          │ Pmenu visible  │ Select next (as <C-n>)   │ <Tab>   │
---- │ pmenu_prev          │ Pmenu visible  │ Select prev (as <C-p>)   │ <S-Tab> │
---- │ pmenu_accept        │ Item selected  │ Accept (as <C-y>)        │ <CR>    │
---- ├┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ |mini.snippets| ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┤
---- │ minisnippets_next   │ Session active │ Jump to next tabstop     │ <Tab>   │
---- │ minisnippets_prev   │ Session active │ Jump to prev tabstop     │ <S-Tab> │
---- │ minisnippets_expand │ Can expand     │ Expand snippet at cursor │ <Tab>   │
---- ├┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ |mini.pairs| ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┤
---- │ minipairs_cr        │ Module set up  │ <CR> respecting pairs    │ <CR>    │
---- │ minipairs_bs        │ Module set up  │ <BS> respecting pairs    │ <BS>    │
---- ├┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ Jump around in Insert mode ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┤
---- │ jump_after_tsnode   │ TS parser      │ Jump after node end      │ <Tab>   │
---- │ jump_before_tsnode  │ TS parser      │ Jump before node start   │ <S-Tab> │
---- │ jump_after_close    │ Insert mode    │ Jump after  )]}"'`       │ <Tab>   │
---- │ jump_before_open    │ Insert mode    │ Jump before ([{"'`       │ <S-Tab> │
---- ├┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ Work with whitespace ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┤
---- │ increase_indent     │ Is on indent   │ Increase indent          │ <Tab>   │
---- │ decrease_indent     │ Is on indent   │ Decrease indent          │ <S-Tab> │
---- │ hungry_bs           │ Space to left  │ Delete all space to left │ <BS>    │
---- ├┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ |vim.snippet| ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┤
---- │ vimsnippet_next     │ Session active │ Jump to next tabstop     │ <Tab>   │
---- │ vimsnippet_prev     │ Session active │ Jump to prev tabstop     │ <S-Tab> │
---- ├┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ 'hrsh7th/nvim-cmp' ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┤
---- │ cmp_next            │ Menu visible   │ Select next item         │ <Tab>   │
---- │ cmp_prev            │ Menu visible   │ Select prev item         │ <S-Tab> │
---- │ cmp_accept          │ Item selected  │ Accept selected item     │ <CR>    │
---- ├┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ 'Saghen/blink.cmp' ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┤
---- │ blink_next          │ Menu visible   │ Select next item         │ <Tab>   │
---- │ blink_prev          │ Menu visible   │ Select prev item         │ <S-Tab> │
---- │ blink_accept        │ Item selected  │ Accept selected item     │ <CR>    │
---- ├┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ 'L3MON4D3/LuaSnip' ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┤
---- │ luasnip_next        │ Session active │ Jump to next tabstop     │ <Tab>   │
---- │ luasnip_prev        │ Session active │ Jump to prev tabstop     │ <S-Tab> │
---- │ luasnip_expand      │ Can expand     │ Expand snippet at cursor │ <Tab>   │
---- ├┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ 'windwp/nvim-autopairs' ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┤
---- │ nvimautopairs_cr    │ Module present │ <CR> respecting pairs    │ <CR>    │
---- │ nvimautopairs_bs    │ Module present │ <BS> respecting pairs    │ <BS>    │
---- └─────────────────────┴────────────────┴──────────────────────────┴─────────┘
----
+--- >
+---  ┌─────────────────────┬────────────────┬──────────────────────────┬─────────┐
+---  │      Step name      │   Condition    │          Action          │ For key │
+---  ├─────────────────────┴────────────────┴──────────────────────────┴─────────┤
+---  ├┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ |ins-completion-menu| ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┤
+---  │ pmenu_next          │ Pmenu visible  │ Select next (as <C-n>)   │ <Tab>   │
+---  │ pmenu_prev          │ Pmenu visible  │ Select prev (as <C-p>)   │ <S-Tab> │
+---  │ pmenu_accept        │ Item selected  │ Accept (as <C-y>)        │ <CR>    │
+---  ├┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ |mini.snippets| ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┤
+---  │ minisnippets_next   │ Session active │ Jump to next tabstop     │ <Tab>   │
+---  │ minisnippets_prev   │ Session active │ Jump to prev tabstop     │ <S-Tab> │
+---  │ minisnippets_expand │ Can expand     │ Expand snippet at cursor │ <Tab>   │
+---  ├┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ |mini.pairs| ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┤
+---  │ minipairs_cr        │ Module set up  │ <CR> respecting pairs    │ <CR>    │
+---  │ minipairs_bs        │ Module set up  │ <BS> respecting pairs    │ <BS>    │
+---  ├┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ Jump around in Insert mode ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┤
+---  │ jump_after_tsnode   │ TS parser      │ Jump after node end      │ <Tab>   │
+---  │ jump_before_tsnode  │ TS parser      │ Jump before node start   │ <S-Tab> │
+---  │ jump_after_close    │ Insert mode    │ Jump after  )]}"'`       │ <Tab>   │
+---  │ jump_before_open    │ Insert mode    │ Jump before ([{"'`       │ <S-Tab> │
+---  ├┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ Work with whitespace ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┤
+---  │ increase_indent     │ Is on indent   │ Increase indent          │ <Tab>   │
+---  │ decrease_indent     │ Is on indent   │ Decrease indent          │ <S-Tab> │
+---  │ hungry_bs           │ Space to left  │ Delete all space to left │ <BS>    │
+---  ├┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ |vim.snippet| ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┤
+---  │ vimsnippet_next     │ Session active │ Jump to next tabstop     │ <Tab>   │
+---  │ vimsnippet_prev     │ Session active │ Jump to prev tabstop     │ <S-Tab> │
+---  ├┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ 'hrsh7th/nvim-cmp' ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┤
+---  │ cmp_next            │ Menu visible   │ Select next item         │ <Tab>   │
+---  │ cmp_prev            │ Menu visible   │ Select prev item         │ <S-Tab> │
+---  │ cmp_accept          │ Item selected  │ Accept selected item     │ <CR>    │
+---  ├┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ 'Saghen/blink.cmp' ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┤
+---  │ blink_next          │ Menu visible   │ Select next item         │ <Tab>   │
+---  │ blink_prev          │ Menu visible   │ Select prev item         │ <S-Tab> │
+---  │ blink_accept        │ Item selected  │ Accept selected item     │ <CR>    │
+---  ├┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ 'L3MON4D3/LuaSnip' ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┤
+---  │ luasnip_next        │ Session active │ Jump to next tabstop     │ <Tab>   │
+---  │ luasnip_prev        │ Session active │ Jump to prev tabstop     │ <S-Tab> │
+---  │ luasnip_expand      │ Can expand     │ Expand snippet at cursor │ <Tab>   │
+---  ├┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ 'windwp/nvim-autopairs' ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┤
+---  │ nvimautopairs_cr    │ Module present │ <CR> respecting pairs    │ <CR>    │
+---  │ nvimautopairs_bs    │ Module present │ <BS> respecting pairs    │ <BS>    │
+---  └─────────────────────┴────────────────┴──────────────────────────┴─────────┘
+--- <
 --- Notes:
 --- - Executing action has limitations of |:map-expression| (like not allowed text
 ---   or buffer changes, etc.). To execute complex lua code, use |vim.schedule()|
@@ -408,7 +404,7 @@ MiniKeymap.gen_step = {}
 ---
 ---   local stab_step = keymap.gen_step.search_pattern([=[[(\[{]\+]=], 'bW')
 ---   keymap.map_multistep({ 'i', 'n', 'x' }, '<S-Tab>', { stab_step })
----<
+--- <
 MiniKeymap.gen_step.search_pattern = function(pattern, flags, opts)
   if type(pattern) ~= 'string' then H.error('`pattern` should be string, not ' .. vim.inspect(type(pattern))) end
   flags = flags or ''
