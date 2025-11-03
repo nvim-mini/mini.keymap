@@ -9,15 +9,17 @@ See more details in [Features](#features) and [Documentation](doc/mini-keymap.tx
 > [!NOTE]
 > This was previously hosted at a personal `echasnovski` GitHub account. It was transferred to a dedicated organization to improve long term project stability. See more details [here](https://github.com/nvim-mini/mini.nvim/discussions/1970).
 
-⦿ This is a part of [mini.nvim](https://github.com/nvim-mini/mini.nvim) library. Please use [this link](https://github.com/nvim-mini/mini.nvim/blob/main/readmes/mini-keymap.md) if you want to mention this module.
+⦿ This is a part of [mini.nvim](https://nvim-mini.org/mini.nvim) library. Please use [this link](https://nvim-mini.org/mini.nvim/readmes/mini-keymap) if you want to mention this module.
 
 ⦿ All contributions (issues, pull requests, discussions, etc.) are done inside of 'mini.nvim'.
 
-⦿ See the repository page to learn about common design principles and configuration recipes.
+⦿ See [whole library documentation](https://nvim-mini.org/mini.nvim/doc/mini-nvim) to learn about general design principles, disable/configuration recipes, and more.
+
+⦿ See [MiniMax](https://nvim-mini.org/MiniMax) for a full config example that uses this module.
 
 ---
 
-If you want to help this project grow but don't know where to start, check out [contributing guides of 'mini.nvim'](https://github.com/nvim-mini/mini.nvim/blob/main/CONTRIBUTING.md) or leave a Github star for 'mini.nvim' project and/or any its standalone Git repositories.
+If you want to help this project grow but don't know where to start, check out [contributing guides of 'mini.nvim'](https://nvim-mini.org/mini.nvim/CONTRIBUTING) or leave a Github star for 'mini.nvim' project and/or any its standalone Git repositories.
 
 ## Demo
 
@@ -29,9 +31,9 @@ https://github.com/user-attachments/assets/a3e34e9f-6901-4e57-a5bd-9508b2c6d065
 - Map keys to perform configurable multi-step actions: if condition for step one is true - execute step one action, else check step two, and so on until falling back to executing original keys. This is usually referred to as "smart" keys (like "smart tab"). See `:h MiniKeymap.map_multistep()`.
 
   There are many built-in steps targeted for Insert mode mappings of special keys like `<Tab>`, `<S-Tab>`, `<CR>`, and `<BS>`:
-  - Navigate and accept built-in Insert mode completion. Useful for [mini.completion](https://github.com/nvim-mini/mini.nvim/blob/main/readmes/mini-completion.md).
-  - Navigate and expand [mini.snippets](https://github.com/nvim-mini/mini.nvim/blob/main/readmes/mini-snippets.md).
-  - Execute `<CR>` and `<BS>` respecting [mini.pairs](https://github.com/nvim-mini/mini.nvim/blob/main/readmes/mini-pairs.md).
+  - Navigate and accept built-in Insert mode completion. Useful for [mini.completion](https://nvim-mini.org/mini.nvim/readmes/mini-completion).
+  - Navigate and expand [mini.snippets](https://nvim-mini.org/mini.nvim/readmes/mini-snippets).
+  - Execute `<CR>` and `<BS>` respecting [mini.pairs](https://nvim-mini.org/mini.nvim/readmes/mini-pairs).
   - Jump before/after current tree-sitter node.
   - Jump before opening and after closing characters (brackets and quotes).
   - Increase/decrease indent when cursor is inside of it.
@@ -113,7 +115,7 @@ There are two branches to install from:
 Here are code snippets for some common installation methods (use only one):
 
 <details>
-<summary>With <a href="https://github.com/nvim-mini/mini.nvim/blob/main/readmes/mini-deps.md">mini.deps</a></summary>
+<summary>With <a href="https://nvim-mini.org/mini.nvim/readmes/mini-deps">mini.deps</a></summary>
 
 - 'mini.nvim' library:
 
